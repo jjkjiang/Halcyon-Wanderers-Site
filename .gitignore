@@ -1,0 +1,6 @@
+venv/
+static/
+__pycache__/
+*py[cod]
+
+prod_settings.py
