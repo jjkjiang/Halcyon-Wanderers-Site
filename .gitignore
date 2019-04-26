@@ -1,5 +1,5 @@
 venv/
-static/
+/static/
 __pycache__/
 *py[cod]
 
