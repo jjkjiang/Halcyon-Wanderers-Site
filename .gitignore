@@ -6,3 +6,4 @@ __pycache__/
 prod_settings.py
 
 *.sqlite3
+whoosh_index

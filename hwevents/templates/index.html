@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+</head>
+<body>
+{% block header %}
+{% include "navbar.html" with active='events' %}
+{% endblock header %}
+<div class="row mt-2">
+    <ul class="nav nav-pills nav-justified col-md-2 offset-md-5">
+        <li class="nav-item active">
+            <a class="nav-link active" href="#">List View</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Calendar View</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row mt-5">
+    <!--TODO Django templating stuff-->
+    <div class="col-md-4 text-center">
+        dont really know what would go here yet
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <img class="card-img-top"
+                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
+                 alt="Card image cap">
+            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
+            <div class="card-body">
+                <p>We doing stuff! Bring formalwear!</p>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-success">I'm going</button>
+                    <p class="text-muted ml-auto">-Jif</p>
+                </div>
+            </div>
+            <div class="card-footer d-flex">
+                <div class="text-left">
+                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
+                </div>
+                <div class="ml-auto text-right">
+                    <i class="fa fa-user"></i> 20
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 text-center">
+        <p>create your own event stuff</p>
+    </div>
+
+    <div class="col-md-4 offset-md-4 mt-3">
+        <div class="card border-primary">
+            <img class="card-img-top"
+                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
+                 alt="Card image cap">
+            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
+            <div class="card-body">
+                <p>We doing stuff! Bring formalwear!</p>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-success">I'm going</button>
+                    <p class="text-muted ml-auto">-Jif</p>
+                </div>
+            </div>
+            <div class="card-footer d-flex">
+                <div class="text-left">
+                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
+                </div>
+                <div class="ml-auto text-right">
+                    <i class="fa fa-user"></i> 20
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 offset-md-4 mt-3">
+        <div class="card border-primary">
+            <img class="card-img-top"
+                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
+                 alt="Card image cap">
+            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
+            <div class="card-body">
+                <p>We doing stuff! Bring formalwear!</p>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-success">I'm going</button>
+                    <p class="text-muted ml-auto">-Jif</p>
+                </div>
+            </div>
+            <div class="card-footer d-flex">
+                <div class="text-left">
+                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
+                </div>
+                <div class="ml-auto text-right">
+                    <i class="fa fa-user"></i> 20
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
