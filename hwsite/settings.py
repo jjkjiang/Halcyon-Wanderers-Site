@@ -129,7 +129,6 @@ USE_TZ = True
 
 STATICFILES_DIRS = (
     MACHINA_MAIN_STATIC_DIR,
-    os.path.join(BASE_DIR, "hwevents/static"),
     os.path.join(BASE_DIR, "hwsite/static"),
 )
 
