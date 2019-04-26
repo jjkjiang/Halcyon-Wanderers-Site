@@ -1,6 +1,14 @@
 Django==2.2
+django-haystack==2.8.1
+django-js-asset==1.2.2
+django-machina==1.0.1
+django-mptt==0.10.0
+django-widget-tweaks==1.4.3
 gunicorn==19.9.0
+markdown2==2.3.7
+Pillow==6.0.0
 pkg-resources==0.0.0
 psycopg2==2.8.2
 pytz==2019.1
 sqlparse==0.3.0
+Whoosh==2.7.4
