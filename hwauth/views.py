@@ -27,7 +27,7 @@ def get_token(code):
     }
 
     response = requests.post("https://discordapp.com/api/v6/oauth2/token", data, headers)
-    response_dict = json.loads(response)
+    response_dict = response.json()
 
     return response_dict["access_token"]
 
@@ -47,7 +47,7 @@ def oauth_redirect(request):
     }
 
     response = requests.get("https://discordapp.com/api/v6/users/@me", headers=headers)
-    response_dict = json.loads(response)
+    response_dict = response.json()
 
     query_results = DiscordID.objects.filter(discord_id=response_dict['id'])
 
