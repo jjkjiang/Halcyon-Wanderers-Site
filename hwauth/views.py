@@ -18,7 +18,7 @@ def get_token(code):
         'client_secret': settings.DISCORD_CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': 'http://imehi.me/auth/discord/',
+        'redirect_uri': 'https://imehi.me/auth/discord/',
         'scope': 'identify'
     }
 
@@ -37,6 +37,7 @@ def get_token(code):
 def update_avatar(id, hash):
     discord_id = DiscordID.objects.get(discord_id=id)
     discord_id.avatar = "https://cdn.discordapp.com/avatars/" + id + "/" + hash
+    discord_id.save()
 
 
 @api_view(['GET'])
@@ -45,7 +46,7 @@ def oauth_redirect(request):
     token = get_token(code)
 
     headers = {
-        'Authorization': token
+        'Authorization': "Bearer " + token
     }
 
     response = requests.get("https://discordapp.com/api/v6/users/@me", headers=headers)
@@ -62,3 +63,5 @@ def oauth_redirect(request):
         DiscordID.objects.create(discord_id=response_dict['id'], user=user)
         login(request, user)
         update_avatar(response_dict['id'], response_dict['avatar'])
+
+    return
