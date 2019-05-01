@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 
 from .models import DiscordID
+from django.conf import settings
 
 
 # Create your views here.
@@ -13,8 +14,8 @@ from .models import DiscordID
 
 def get_token(code):
     data = {
-        'client_id': DISCORD_CLIENT_ID,
-        'client_secret': DISCORD_CLIENT_SECRET,
+        'client_id': settings.DISCORD_CLIENT_ID,
+        'client_secret': settings.DISCORD_CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': 'http://54.71.46.4/',
