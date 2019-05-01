@@ -27,8 +27,9 @@ def get_token(code):
     }
 
     response = requests.post("https://discordapp.com/api/v6/oauth2/token", data, headers)
+    response_dict = json.loads(response)
 
-    return response["access_token"]
+    return response_dict["access_token"]
 
 
 def update_avatar(id, hash):
@@ -46,16 +47,16 @@ def oauth_redirect(request):
     }
 
     response = requests.get("https://discordapp.com/api/v6/users/@me", headers=headers)
-    dict = json.loads(response)
+    response_dict = json.loads(response)
 
-    query_results = DiscordID.objects.filter(discord_id=dict['id'])
+    query_results = DiscordID.objects.filter(discord_id=response_dict['id'])
 
     if query_results.exists():
-        user = query_results.get(discord_id=dict['id']).user
+        user = query_results.get(discord_id=response_dict['id']).user
         login(request, user)
-        update_avatar(dict['id'], dict['avatar'])
+        update_avatar(response_dict['id'], response_dict['avatar'])
     else:
-        user = User.objects.create_user(username=dict['username'])
-        DiscordID.objects.create(discord_id=dict['id'], user=user)
+        user = User.objects.create_user(username=response_dict['username'])
+        DiscordID.objects.create(discord_id=response_dict['id'], user=user)
         login(request, user)
-        update_avatar(dict['id'], dict['avatar'])
+        update_avatar(response_dict['id'], response_dict['avatar'])
