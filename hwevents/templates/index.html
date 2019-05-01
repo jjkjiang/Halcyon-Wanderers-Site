@@ -30,77 +30,34 @@
     </div>
 
     <div class="col-md-4">
+        {% for event in newest_events %}
         <div class="card border-primary">
             <img class="card-img-top"
-                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
+                 src="{{ event.image.url }}"
                  alt="Card image cap">
-            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
+            <div class="card-header"><h2>{{ event.title }}</h2></div>
             <div class="card-body">
-                <p>We doing stuff! Bring formalwear!</p>
+                <p>{{ event.description }}</p>
                 <div class="d-flex">
                     <button type="button" class="btn btn-success">I'm going</button>
-                    <p class="text-muted ml-auto">-Jif</p>
+                    <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
                 </div>
             </div>
             <div class="card-footer d-flex">
                 <div class="text-left">
-                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
+                    <i class="fa fa-clock"></i> {{ event.event_date }}
                 </div>
                 <div class="ml-auto text-right">
-                    <i class="fa fa-user"></i> 20
+                    <i class="fa fa-user"></i> {{ event.going }}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 text-center">
-        <p>create your own event stuff</p>
+        {% endfor %}
     </div>
 
-    <div class="col-md-4 offset-md-4 mt-3">
-        <div class="card border-primary">
-            <img class="card-img-top"
-                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
-                 alt="Card image cap">
-            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
-            <div class="card-body">
-                <p>We doing stuff! Bring formalwear!</p>
-                <div class="d-flex">
-                    <button type="button" class="btn btn-success">I'm going</button>
-                    <p class="text-muted ml-auto">-Jif</p>
-                </div>
-            </div>
-            <div class="card-footer d-flex">
-                <div class="text-left">
-                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
-                </div>
-                <div class="ml-auto text-right">
-                    <i class="fa fa-user"></i> 20
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 offset-md-4 mt-3">
-        <div class="card border-primary">
-            <img class="card-img-top"
-                 src="https://media.discordapp.net/attachments/534093319089946629/571167789633765376/ffxiv_04152019_212939_537.png?width=1758&height=989"
-                 alt="Card image cap">
-            <div class="card-header"><h2>Laura and Jif's Wedding</h2></div>
-            <div class="card-body">
-                <p>We doing stuff! Bring formalwear!</p>
-                <div class="d-flex">
-                    <button type="button" class="btn btn-success">I'm going</button>
-                    <p class="text-muted ml-auto">-Jif</p>
-                </div>
-            </div>
-            <div class="card-footer d-flex">
-                <div class="text-left">
-                    <i class="fa fa-clock"></i> October 1st, 2019 9:00 EST
-                </div>
-                <div class="ml-auto text-right">
-                    <i class="fa fa-user"></i> 20
-                </div>
-            </div>
-        </div>
+
+    <div class="col-md-4 text-center">
+        <p>create your own event stuff</p>
     </div>
 </div>
 

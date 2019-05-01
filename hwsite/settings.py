@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'machina.apps.forum_tracking',
     'machina.apps.forum_member',
     'machina.apps.forum_permission',
+
+    # Custom apps:
+    'hwevents',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,9 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 CACHES = {
