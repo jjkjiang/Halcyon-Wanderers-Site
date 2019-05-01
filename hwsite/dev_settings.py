@@ -19,3 +19,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Placeholders
+DISCORD_CLIENT_SECRET = ''
+DISCORD_CLIENT_ID = ''

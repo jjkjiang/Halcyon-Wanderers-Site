@@ -13,8 +13,8 @@ from .models import DiscordID
 
 def get_token(code):
     data = {
-        'client_id': '',
-        'client_secret': '',
+        'client_id': DISCORD_CLIENT_ID,
+        'client_secret': DISCORD_CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': 'http://54.71.46.4/',
