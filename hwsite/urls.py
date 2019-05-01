@@ -21,6 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('hwevents.urls')),
+    path('auth/', include('hwauth.urls')),
     path('admin/', admin.site.urls),
     path('forum/', include(machina_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

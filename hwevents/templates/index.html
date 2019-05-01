@@ -1,4 +1,5 @@
 {% load static %}
+{% load tz %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,15 +24,15 @@
     </ul>
 </div>
 
-<div class="row mt-5">
+<div class="row">
     <!--TODO Django templating stuff-->
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center mt-3">
         dont really know what would go here yet
     </div>
 
     <div class="col-md-4">
         {% for event in newest_events %}
-        <div class="card border-primary">
+        <div class="card border-primary mt-3">
             <img class="card-img-top"
                  src="{{ event.image.url }}"
                  alt="Card image cap">
@@ -55,8 +56,7 @@
         {% endfor %}
     </div>
 
-
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center" mt-3>
         <p>create your own event stuff</p>
     </div>
 </div>
