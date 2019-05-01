@@ -27,7 +27,14 @@
     </div>
     <div class="navbar-nav navbar-right">
         <!-- todo: discord oauth magic with django sessions -->
-        <a class="nav-item nav-link" href="#">{% trans "Sign In" %} </a>
+        {% if user.is_authenticated %}
+        <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
+        {% else %}
+        <a class="nav-item nav-link"
+           href="https://discordapp.com/api/oauth2/authorize?client_id=572994073682509825&redirect_uri=https%3A%2F%2Fimehi.me%2Fauth%2Fdiscord%2F&response_type=code&scope=identify">
+            {% trans "Sign In" %}
+        </a>
+        {% endif %}
     </div>
     {% endblock header_collapse %}
   </div>

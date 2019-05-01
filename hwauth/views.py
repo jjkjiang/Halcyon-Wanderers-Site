@@ -2,6 +2,7 @@ import json
 
 import requests
 from rest_framework.decorators import api_view
+from django.http.response import HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 
@@ -64,4 +65,4 @@ def oauth_redirect(request):
         login(request, user)
         update_avatar(response_dict['id'], response_dict['avatar'])
 
-    return
+    return HttpResponseRedirect(redirect_to="https://imehi.me")
