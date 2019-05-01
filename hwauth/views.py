@@ -18,7 +18,7 @@ def get_token(code):
         'client_secret': settings.DISCORD_CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': 'http://54.71.46.4/',
+        'redirect_uri': 'http://imehi.me/auth/discord/',
         'scope': 'identify'
     }
 
@@ -28,6 +28,8 @@ def get_token(code):
 
     response = requests.post("https://discordapp.com/api/v6/oauth2/token", data, headers)
     response_dict = response.json()
+
+    print(response_dict)
 
     return response_dict["access_token"]
 
