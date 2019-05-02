@@ -1,20 +1,33 @@
 {% load static %}
 {% load tz %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Halcyon Wanderers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css"/>
+    {{ form.media }}
 </head>
 <body>
 {% block header %}
-{% include "navbar.html" with active='events' %}
+    {% include "navbar.html" with active='events' %}
 {% endblock header %}
 <div class="row mt-2">
     <ul class="nav nav-pills nav-justified col-md-2 offset-md-5">
@@ -28,39 +41,56 @@
 </div>
 
 <div class="row">
-    <!--TODO Django templating stuff-->
-    <div class="col-md-4 text-center mt-3">
+    <div class="col-md-4 text-center mt-3 d-none d-md-block">
         dont really know what would go here yet
     </div>
 
     <div class="col-md-4">
         {% for event in newest_events %}
-        <div class="card border-primary mt-3">
-            <img class="card-img-top"
-                 src="{{ event.image.url }}"
-                 alt="Card image cap">
-            <div class="card-header"><h2>{{ event.title }}</h2></div>
-            <div class="card-body">
-                <p>{{ event.description }}</p>
-                <div class="d-flex">
-                    <button type="button" class="btn btn-success">I'm going</button>
-                    <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
+            <div class="card border-primary mt-3">
+                <img class="card-img-top"
+                     src="{{ event.image.url }}"
+                     alt="Card image cap">
+                <div class="card-header"><h2>{{ event.title }}</h2></div>
+                <div class="card-body">
+                    <p>{{ event.description }}</p>
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-success">I'm going</button>
+                        <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
+                    </div>
+                </div>
+                <div class="card-footer d-flex">
+                    <div class="text-left">
+                        <i class="fa fa-clock"></i> {{ event.event_date }} EST
+                    </div>
+                    <div class="ml-auto text-right">
+                        <i class="fa fa-user"></i> {{ event.going }}
+                    </div>
                 </div>
             </div>
-            <div class="card-footer d-flex">
-                <div class="text-left">
-                    <i class="fa fa-clock"></i> {{ event.event_date }} EST
-                </div>
-                <div class="ml-auto text-right">
-                    <i class="fa fa-user"></i> {{ event.going }}
-                </div>
-            </div>
-        </div>
         {% endfor %}
     </div>
 
-    <div class="col-md-4 text-center" mt-3>
-        <p>create your own event stuff</p>
+    <div class="col-md-4 mt-3 d-none d-md-block">
+        {{ form.errors }}
+        {{ form.non_field_errors }}
+
+        <div class="card border-primary mr-4">
+            <div class="card-header">
+                <h2>Create an event!</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    {% if user.is_authenticated %}
+                        <button type="submit" class="btn btn-success">Save</button>
+                    {% else %}
+                        <button type="button" class="btn btn-warning disabled">Login to post!</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

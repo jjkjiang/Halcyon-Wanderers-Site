@@ -47,13 +47,17 @@ INSTALLED_APPS = [
     'machina.apps.forum_member',
     'machina.apps.forum_permission',
 
-    # Rest framework
+    # Misc dependencies
     'rest_framework',
+    'crispy_forms',
+    'tempus_dominus',
 
     # Custom apps:
     'hwevents',
     'hwauth',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

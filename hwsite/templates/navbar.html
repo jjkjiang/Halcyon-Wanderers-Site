@@ -33,6 +33,12 @@
             {% trans "Sign In" %}
         </a>
         {% endif %}
+
+        {% if user.is_staff %}
+        <a class="nav-item nav-link" href="/admin">
+            {% trans "Admin" %}
+        </a>
+        {% endif %}
     </div>
     {% endblock header_collapse %}
   </div>
