@@ -16,7 +16,7 @@ class EventCreateForm(ModelForm):
 
     class Meta:
         model = Event
-        fields = ['title', 'image', 'description']
+        fields = ['title', 'image', 'description', 'event_date']
 
 
 def index(request):
