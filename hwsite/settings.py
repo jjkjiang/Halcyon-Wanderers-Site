@@ -88,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'machina.core.context_processors.metadata',
+                'hwsite.context_processors.discord_extra_auth',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',

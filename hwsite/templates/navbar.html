@@ -24,8 +24,8 @@
       <a class="nav-item nav-link" href="{% url 'forum_search:search' %}">{% trans "Advanced search" %}</a>
     </div>
     <div class="navbar-nav navbar-right">
-        <!-- todo: discord oauth magic with django sessions -->
         {% if user.is_authenticated %}
+        <img style="height:38px;" src="{{ discord.avatar }}">
         <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
         {% else %}
         <a class="nav-item nav-link"
