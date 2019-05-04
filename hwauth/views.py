@@ -2,10 +2,11 @@ import json
 
 import requests
 from django.http.response import HttpResponseRedirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
 from .models import DiscordID
+from hwevents.views import index
 from django.conf import settings
 
 
@@ -63,4 +64,9 @@ def oauth_redirect(request):
         login(request, user)
         update_avatar(response_dict['id'], response_dict['avatar'])
 
-    return HttpResponseRedirect(redirect_to="https://imehi.me")
+    return HttpResponseRedirect(redirect_to="/")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(redirect_to="/")
