@@ -56,11 +56,16 @@
                 <div class="card-body">
                     <p>{{ event.description }}</p>
                     <div class="d-flex">
+
+                    {% if user.is_authenticated %}
                         {% if not event.user_going %}
                         <button type="button" class="btn btn-success attend">I'm going</button>
                         {% else %}
                         <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
                         {% endif %}
+                    {% else %}
+                        <button type="button" class="btn btn-success disabled">Login to attend!</button>
+                    {% endif %}
                         <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
                     </div>
                 </div>

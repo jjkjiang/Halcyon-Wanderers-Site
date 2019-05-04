@@ -60,15 +60,16 @@ def index(request):
             return HttpResponseRedirect('/')
         else:
             return HttpResponse(form.errors)
+    elif request.method == "GET":
+        newest_events = Event.objects \
+                            .filter(event_date__gt=datetime.datetime.now()) \
+                            .annotate(going=Count('participants')) \
+                            .order_by('event_date')[:10]
 
-    user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
+        if request.user.is_authenticated:
+            user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
+            newest_events = newest_events.annotate(user_going=Exists(user_events))
 
-    newest_events = Event.objects \
-                        .filter(event_date__gt=datetime.datetime.now()) \
-                        .annotate(going=Count('participants')) \
-                        .annotate(user_going=Exists(user_events)) \
-                        .order_by('event_date')[:10]
+        create_form = EventCreateForm()
 
-    create_form = EventCreateForm()
-
-    return render(request, 'index.html', context={'newest_events': newest_events, 'form': create_form})
+        return render(request, 'index.html', context={'newest_events': newest_events, 'form': create_form})
