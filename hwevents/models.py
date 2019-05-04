@@ -21,3 +21,8 @@ class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'event'], name='unique_participant')
+        ]

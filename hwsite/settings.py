@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'machina.apps.forum_permission',
 
     # Misc dependencies
-    'rest_framework',
     'crispy_forms',
     'tempus_dominus',
 

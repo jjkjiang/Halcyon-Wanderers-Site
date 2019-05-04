@@ -1,7 +1,6 @@
 import json
 
 import requests
-from rest_framework.decorators import api_view
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -41,7 +40,6 @@ def update_avatar(id, hash):
     discord_id.save()
 
 
-@api_view(['GET'])
 def oauth_redirect(request):
     code = request.GET.get('code')
     token = get_token(code)

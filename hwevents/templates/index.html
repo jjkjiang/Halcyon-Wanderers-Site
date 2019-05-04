@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -19,11 +20,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css"/>
+
     {{ form.media }}
+
+    <script src="{% static 'js/attend.js' %}"></script>
+
 </head>
 <body>
 {% block header %}
@@ -47,7 +48,7 @@
 
     <div class="col-md-4">
         {% for event in newest_events %}
-            <div class="card border-primary mt-3">
+            <div class="card border-primary mt-3" id="{{ event.pk }}">
                 <img class="card-img-top"
                      src="{{ event.image.url }}"
                      alt="Card image cap">
@@ -55,7 +56,11 @@
                 <div class="card-body">
                     <p>{{ event.description }}</p>
                     <div class="d-flex">
-                        <button type="button" class="btn btn-success">I'm going</button>
+                        {% if not event.user_going %}
+                        <button type="button" class="btn btn-success attend">I'm going</button>
+                        {% else %}
+                        <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
+                        {% endif %}
                         <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
                     </div>
                 </div>
@@ -64,7 +69,8 @@
                         <i class="fa fa-clock"></i> {{ event.event_date }} EST
                     </div>
                     <div class="ml-auto text-right">
-                        <i class="fa fa-user"></i> {{ event.going }}
+                        <i class="fa fa-user"></i>
+                        <span class="attendance-count"> {{ event.going }}</span>
                     </div>
                 </div>
             </div>
