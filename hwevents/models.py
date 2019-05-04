@@ -22,6 +22,9 @@ class Participant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.user.__str__() + " is going to " + self.event.title
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'event'], name='unique_participant')
