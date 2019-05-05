@@ -19,25 +19,23 @@ $(document).ready(function () {
             data = eval(data);
 
             console.log(data);
-            
-            users = JSON.parse(data[0]);
-            avatars = JSON.parse(data[1]);
+
             modal = $('#modalBody').eq(0).empty();
 
 
-            if (users.length === 0) {
+            if (data.length === 0) {
                 modal.append(
                     $('<p>').text("Nobody here :(")
                 );
                 return;
             }
 
-            for (let i = 0; i < users.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 modal.append(
                     $('<li>').append(
                         $('<p>').prepend(
-                            $('<img>').attr('src', avatars[i]["fields"]["avatar"]).attr('style', 'height:38px')
-                        ).append(" " + users[i]["fields"]["username"])
+                            $('<img>').attr('src', data[i]["avatar"]).attr('style', 'height:38px')
+                        ).append(" " + data[i]["username"])
                     )
                 );
             }

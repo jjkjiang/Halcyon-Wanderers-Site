@@ -52,11 +52,11 @@ def get_participants(request):
     event_id = request.POST.get('event')
 
     participants = Participant.objects.filter(event=event_id)
-    user = User.objects.filter(user__in=participants).order_by('user')
-    discordid = DiscordID.objects.filter(user__in=user).order_by('user')
+    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'))
 
-    data = [serializers.serialize("json", user, fields=('username',)),
-            serializers.serialize("json", discordid, fields=('avatar',))]
+    data = []
+    for user in users:
+        data.append({'username': user.username, 'avatar': user.avatar})
 
     return JsonResponse(data, safe=False)
 
