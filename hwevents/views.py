@@ -43,11 +43,17 @@ def cancel(request):
 
 
 def get_participants(request):
+    """
+    todo: Use DRF serializers to properly do this.
+    user = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'))
+    cannot be properly serialized as base serializers only take into account the original model fields
+    and not annotated (joined) fields
+    """
     event_id = request.POST.get('event')
 
     participants = Participant.objects.filter(event=event_id)
-    user = User.objects.filter(user__in=participants)
-    discordid = DiscordID.objects.filter(user__in=user)
+    user = User.objects.filter(user__in=participants).order_by('user')
+    discordid = DiscordID.objects.filter(user__in=user).order_by('user')
 
     data = [serializers.serialize("json", user, fields=('username',)),
             serializers.serialize("json", discordid, fields=('avatar',))]
