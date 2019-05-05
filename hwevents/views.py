@@ -1,12 +1,16 @@
 import datetime
+import json
 import sys
 
-from django.db.models import Count, Exists, OuterRef
+from django.contrib.auth.models import User
+from django.core import serializers
+from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from tempus_dominus.widgets import DateTimePicker
 
+from hwauth.models import DiscordID
 from hwevents.models import Event, Participant
 
 
@@ -36,6 +40,19 @@ def cancel(request):
         return HttpResponse(200)
     else:
         return HttpResponse(500)
+
+
+def get_participants(request):
+    event_id = request.POST.get('event')
+
+    participants = Participant.objects.filter(event=event_id)
+    user = User.objects.filter(user__in=participants)
+    discordid = DiscordID.objects.filter(user__in=user)
+
+    data = [serializers.serialize("json", user, fields=('username',)),
+            serializers.serialize("json", discordid, fields=('avatar',))]
+
+    return JsonResponse(data, safe=False)
 
 
 class EventCreateForm(ModelForm):
