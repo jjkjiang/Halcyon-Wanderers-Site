@@ -30,76 +30,77 @@
 {% block header %}
 {% include "navbar.html" with active='events' %}
 {% endblock header %}
-<div class="row mt-2">
-    <ul class="nav nav-pills nav-justified col-md-2 offset-md-5">
-        <li class="nav-item active">
-            <a class="nav-link active" href="#">List View</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#">Calendar View</a>
-        </li>
-    </ul>
-</div>
-
-<div class="row">
-    <div class="col-md-4 text-center mt-3 d-none d-md-block">
-        dont really know what would go here yet
+<div class="container-fluid">
+    <div class="row mt-2">
+        <ul class="nav nav-pills nav-justified col-md-2 offset-md-5">
+            <li class="nav-item active">
+                <a class="nav-link active" href="#">List View</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Calendar View</a>
+            </li>
+        </ul>
     </div>
+    <div class="row">
+        <div class="col-md-4 text-center mt-3 d-none d-md-block">
+            dont really know what would go here yet
+        </div>
 
-    <div class="col-md-4">
-        {% for event in newest_events %}
-            <div class="card border-primary mt-3" id="{{ event.pk }}">
-                <img class="card-img-top"
-                     src="{{ event.image.url }}"
-                     alt="Card image cap">
-                <div class="card-header"><h2>{{ event.title }}</h2></div>
-                <div class="card-body">
-                    <p>{{ event.description }}</p>
-                    <div class="d-flex">
+        <div class="col-md-4">
+            {% for event in newest_events %}
+                <div class="card border-primary mt-3" id="{{ event.pk }}">
+                    <img class="card-img-top"
+                         src="{{ event.image.url }}"
+                         alt="Card image cap">
+                    <div class="card-header"><h2>{{ event.title }}</h2></div>
+                    <div class="card-body">
+                        <p>{{ event.description }}</p>
+                        <div class="d-flex">
 
-                    {% if user.is_authenticated %}
-                        {% if not event.user_going %}
-                        <button type="button" class="btn btn-success attend">I'm going</button>
+                        {% if user.is_authenticated %}
+                            {% if not event.user_going %}
+                            <button type="button" class="btn btn-success attend">I'm going</button>
+                            {% else %}
+                            <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
+                            {% endif %}
                         {% else %}
-                        <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
+                            <button type="button" class="btn btn-success disabled">Login to attend!</button>
                         {% endif %}
-                    {% else %}
-                        <button type="button" class="btn btn-success disabled">Login to attend!</button>
-                    {% endif %}
-                        <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
+                            <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex">
+                        <div class="text-left">
+                            <i class="fa fa-clock"></i> {{ event.event_date }} EST
+                        </div>
+                        <a class="ml-auto text-right participant-detail" data-toggle="modal" data-target="#modal" href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="attendance-count"> {{ event.going }}</span>
+                        </a>
                     </div>
                 </div>
-                <div class="card-footer d-flex">
-                    <div class="text-left">
-                        <i class="fa fa-clock"></i> {{ event.event_date }} EST
-                    </div>
-                    <a class="ml-auto text-right participant-detail" data-toggle="modal" data-target="#modal" href="#">
-                        <i class="fa fa-user"></i>
-                        <span class="attendance-count"> {{ event.going }}</span>
-                    </a>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-4 mt-3 d-none d-md-block">
+            {{ form.errors }}
+            {{ form.non_field_errors }}
+
+            <div class="card border-primary mr-4">
+                <div class="card-header">
+                    <h2>Create an event!</h2>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="col-md-4 mt-3 d-none d-md-block">
-        {{ form.errors }}
-        {{ form.non_field_errors }}
-
-        <div class="card border-primary mr-4">
-            <div class="card-header">
-                <h2>Create an event!</h2>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form | crispy }}
-                    {% if user.is_authenticated %}
-                        <button type="submit" class="btn btn-success">Save</button>
-                    {% else %}
-                        <button type="button" class="btn btn-warning disabled">Login to post!</button>
-                    {% endif %}
-                </form>
+                <div class="card-body">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        {% if user.is_authenticated %}
+                            <button type="submit" class="btn btn-success">Save</button>
+                        {% else %}
+                            <button type="button" class="btn btn-warning disabled">Login to post!</button>
+                        {% endif %}
+                    </form>
+                </div>
             </div>
         </div>
     </div>

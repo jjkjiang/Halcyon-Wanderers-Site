@@ -1,22 +1,29 @@
 import datetime
-import json
 import sys
 
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from tempus_dominus.widgets import DateTimePicker
 
-from hwauth.models import DiscordID
 from hwevents.models import Event, Participant
 
 
 # Create your views here.
 
 def attend(request):
+    """
+    API view called when the user presses the "Going" button.
+
+    Creates a participant object using the currently authenticated user and the event id passed in.
+
+    Returns an error if a participant somehow already exists.
+
+    :param request: Request data
+    :return: Http response denoting success or failure
+    """
     event_id = request.POST.get('event')
     print(event_id, file=sys.stderr)
 
@@ -31,6 +38,16 @@ def attend(request):
 
 
 def cancel(request):
+    """
+    API view called when the user presses the "Cancel" button.
+
+    Deletes a participant object using the currently authenticated user and the event id passed in.
+
+    Returns an error if a participant doesn't exist to begin with
+
+    :param request:
+    :return:
+    """
     event_id = request.POST.get('event')
     user = request.user
     event = Event.objects.get(pk=event_id)
@@ -44,10 +61,10 @@ def cancel(request):
 
 def get_participants(request):
     """
-    todo: Use DRF serializers to properly do this.
-    user = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'))
-    cannot be properly serialized as base serializers only take into account the original model fields
-    and not annotated (joined) fields
+    Filters for participants by the passed in event id, and returns a list of users that are going to
+    the event. Also includes discord IDs of those users.
+    :param request: Request data
+    :return: JSON containing an array of username + avatar objects
     """
     event_id = request.POST.get('event')
 
@@ -62,6 +79,11 @@ def get_participants(request):
 
 
 class EventCreateForm(ModelForm):
+    """
+    Django form class that overrides the default Django date picker with
+    Tempus Dominus' nicer bootstrap widget.
+    """
+
     event_date = DateTimeField(
         widget=DateTimePicker
     )
@@ -72,6 +94,18 @@ class EventCreateForm(ModelForm):
 
 
 def index(request):
+    """
+    TODO: separate form and index for clarity
+    TODO: add scaling beyond 10 events either with fetching or tabulation
+
+    Main event page that renders the main template for hwevents with the form and loads 10 newest templates as context
+
+    If the user is authenticated, also adds to events' context if particular user is going
+
+    Doubles as form submission handler on POST requests
+    :param request: Request data
+    :return: Rendered index page
+    """
     if request.method == "POST":
         form = EventCreateForm(request.POST, request.FILES)
 
