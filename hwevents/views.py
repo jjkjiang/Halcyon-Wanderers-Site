@@ -1,4 +1,5 @@
 import datetime
+import math
 import sys
 
 from django.contrib.auth.models import User
@@ -93,16 +94,17 @@ class EventCreateForm(ModelForm):
         fields = ['title', 'image', 'description', 'event_date']
 
 
-def index(request):
+def index(request, page=1):
     """
     TODO: separate form and index for clarity
     TODO: add scaling beyond 10 events either with fetching or tabulation
 
-    Main event page that renders the main template for hwevents with the form and loads 10 newest templates as context
+    Main event page that renders the main template for hwevents with the form and current newest events
 
     If the user is authenticated, also adds to events' context if particular user is going
 
     Doubles as form submission handler on POST requests
+    :param page: Page number of index
     :param request: Request data
     :return: Rendered index page
     """
@@ -118,10 +120,16 @@ def index(request):
         else:
             return HttpResponse(form.errors)
     elif request.method == "GET":
+        page = page - 1
+        lower_page = 0 + (10 * page)
+        upper_page = 10 + (10 * page)
+
         newest_events = Event.objects \
                             .filter(event_date__gt=datetime.datetime.now()) \
                             .annotate(going=Count('participants')) \
-                            .order_by('event_date')[:10]
+                            .order_by('event_date')
+
+        pages = math.ceil(newest_events.count() / 10)
 
         if request.user.is_authenticated:
             user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
@@ -129,10 +137,13 @@ def index(request):
 
         create_form = EventCreateForm()
 
-        return render(request, 'index.html', context={'events': newest_events, 'form': create_form})
+        return render(request, 'index.html', context={'events': newest_events[lower_page:upper_page],
+                                                      'form': create_form,
+                                                      'pages': range(1, pages + 1),
+                                                      'active_page': page + 1})
 
 
-def past_view(request, page):
+def all_view(request, page):
     if not page:
         return HttpResponseRedirect('/')
     page = page - 1
@@ -142,9 +153,13 @@ def past_view(request, page):
 
     page_events = Event.objects \
                       .annotate(going=Count('participants')) \
-                      .order_by('event_date')[lower_page:upper_page]
+                      .order_by('event_date')
 
-    return render(request, 'index.html', context={'events': page_events})
+    pages = math.ceil(page_events.count() / 10)
+
+    return render(request, 'index.html', context={'events': page_events[lower_page:upper_page],
+                                                  'pages': range(1, pages + 1),
+                                                  'active_page': page + 1})
 
 
 def detail_view(request, id):
