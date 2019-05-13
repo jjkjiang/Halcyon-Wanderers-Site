@@ -21,7 +21,9 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+    {% if form %}
     {{ form.media }}
+    {% endif %}
 
     <script src="{% static 'js/attend.js' %}"></script>
     <script src="{% static 'js/participants.js' %}"></script>
@@ -47,8 +49,8 @@
         </div>
 
         <div class="col-md-4">
-            {% for event in newest_events %}
-                <div class="card border-primary mt-3" id="{{ event.pk }}">
+            {% for event in events %}
+                <div class="card border-primary my-3" id="{{ event.pk }}">
                     <img class="card-img-top"
                          src="{{ event.image.url }}"
                          alt="Card image cap">
@@ -74,6 +76,7 @@
                             <i class="fa fa-clock"></i> {{ event.event_date }} EST
                         </div>
                         <a class="ml-auto text-right participant-detail" data-toggle="modal" data-target="#modal" href="#">
+                            {% csrf_token %}
                             <i class="fa fa-user"></i>
                             <span class="attendance-count"> {{ event.going }}</span>
                         </a>
@@ -82,6 +85,8 @@
             {% endfor %}
         </div>
 
+
+        {% if form %}
         <div class="col-md-4 mt-3 d-none d-md-block">
             {{ form.errors }}
             {{ form.non_field_errors }}
@@ -103,6 +108,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 

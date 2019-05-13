@@ -129,4 +129,27 @@ def index(request):
 
         create_form = EventCreateForm()
 
-        return render(request, 'index.html', context={'newest_events': newest_events, 'form': create_form})
+        return render(request, 'index.html', context={'events': newest_events, 'form': create_form})
+
+
+def past_view(request, page):
+    if not page:
+        return HttpResponseRedirect('/')
+    page = page - 1
+
+    lower_page = 0 + (10 * page)
+    upper_page = 10 + (10 * page)
+
+    page_events = Event.objects \
+                      .annotate(going=Count('participants')) \
+                      .order_by('event_date')[lower_page:upper_page]
+
+    return render(request, 'index.html', context={'events': page_events})
+
+
+def detail_view(request, id):
+    card = Event.objects \
+        .annotate(going=Count('participants')) \
+        .get(id=id)
+
+    return render(request, 'index.html', context={'events': [card]})
