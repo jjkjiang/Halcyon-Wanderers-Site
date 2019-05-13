@@ -155,6 +155,10 @@ def all_view(request, page):
                       .annotate(going=Count('participants')) \
                       .order_by('event_date')
 
+    if request.user.is_authenticated:
+        user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
+        page_events = page_events.annotate(user_going=Exists(user_events))
+
     pages = math.ceil(page_events.count() / 10)
 
     return render(request, 'index.html', context={'events': page_events[lower_page:upper_page],
@@ -165,6 +169,10 @@ def all_view(request, page):
 def detail_view(request, id):
     card = Event.objects \
         .annotate(going=Count('participants')) \
-        .get(id=id)
+        .filter(id=id)
+
+    if request.user.is_authenticated:
+        user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
+        card = card.annotate(user_going=Exists(user_events))
 
     return render(request, 'index.html', context={'events': [card]})
