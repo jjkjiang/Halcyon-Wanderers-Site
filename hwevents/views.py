@@ -7,6 +7,7 @@ from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
 from hwevents.models import Event, Participant
@@ -60,6 +61,7 @@ def cancel(request):
         return HttpResponse(500)
 
 
+@csrf_exempt
 def get_participants(request):
     """
     Filters for participants by the passed in event id, and returns a list of users that are going to
