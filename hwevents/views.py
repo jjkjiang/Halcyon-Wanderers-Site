@@ -175,4 +175,4 @@ def detail_view(request, id):
         user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
         card = card.annotate(user_going=Exists(user_events))
 
-    return render(request, 'index.html', context={'events': [card]})
+    return render(request, 'index.html', context={'events': card})
