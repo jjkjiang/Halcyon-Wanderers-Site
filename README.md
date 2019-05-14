@@ -18,13 +18,14 @@ OPTIONAL: Use a virtual environment for development https://packaging.python.org
 
 ## How to push to prod
 0. One day CD Pog, maybe later
-1. Manual deployment involves sshing into the prod server and `git pull` in the srv directory
-2. `python manage.py collectstatic`
-3. `python manage.py makemigrations`
-4. `python manage.py migrate`
-5. `sudo systemctl restart gunicorn`
-6. `sudo systemctl restart nginx`
-7. To check deployment status, type `sudo systemctl status x` for either of the above
+1. ssh, `git pull` in the srv directory
+2. `source venv/bin/activate`
+3. `python manage.py collectstatic`
+4. `python manage.py makemigrations`
+5. `python manage.py migrate`
+6. `sudo systemctl restart gunicorn`
+7. `sudo systemctl restart nginx`
+8. To check deployment status, type `sudo systemctl status x` for either of the above
 
 ## How this was made
 AWS Lightsail and this guy's guide almost exactly: 
