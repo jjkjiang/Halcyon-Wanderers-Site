@@ -69,15 +69,16 @@ def oauth_redirect(request):
 
     query_results = DiscordID.objects.filter(discord_id=response_dict['id'])
 
+    user = None
+
     if query_results.exists():
         user = query_results.get(discord_id=response_dict['id']).user
-        login(request, user)
-        update_avatar(response_dict['id'], response_dict['avatar'])
     else:
         user = User.objects.create_user(username=response_dict['username'])
         DiscordID.objects.create(discord_id=response_dict['id'], user=user)
-        login(request, user)
-        update_avatar(response_dict['id'], response_dict['avatar'])
+
+    login(request, user)
+    update_avatar(response_dict['id'], response_dict['avatar'])
 
     return HttpResponseRedirect(redirect_to="/")
 

@@ -71,8 +71,7 @@ def get_participants(request):
     """
     event_id = request.POST.get('event')
 
-    participants = Participant.objects.filter(event=event_id)
-    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'), userid=F('discordid__discord_id'))
+    users = query_participants(event_id)
 
     data = []
     for user in users:
@@ -178,3 +177,18 @@ def detail_view(request, id):
         card = card.annotate(user_going=Exists(user_events))
 
     return render(request, 'index.html', context={'events': card})
+
+
+# Helper functions
+
+def query_participants(event_id):
+    """
+    Obtains list of user objects with avatars and discord id annotated as fields
+    :param event_id: event id to query by
+    :return: iterable queryset of user objects
+    """
+    participants = Participant.objects.filter(event=event_id)
+    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'),
+                                                                userid=F('discordid__discord_id'))
+
+    return users
