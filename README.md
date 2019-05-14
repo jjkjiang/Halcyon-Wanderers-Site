@@ -22,8 +22,9 @@ OPTIONAL: Use a virtual environment for development https://packaging.python.org
 2. `python manage.py collectstatic`
 3. `python manage.py makemigrations`
 4. `python manage.py migrate`
-5. `sudo systemctl gunicorn restart`
-6. `sudo systemctl nginx restart`
+5. `sudo systemctl restart gunicorn`
+6. `sudo systemctl restart nginx`
+7. To check deployment status, type `sudo systemctl status x` for either of the above
 
 ## How this was made
 AWS Lightsail and this guy's guide almost exactly: 
