@@ -72,11 +72,11 @@ def get_participants(request):
     event_id = request.POST.get('event')
 
     participants = Participant.objects.filter(event=event_id)
-    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'))
+    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'), userid=F('discordid__discord_id'))
 
     data = []
     for user in users:
-        data.append({'username': user.username, 'avatar': user.avatar})
+        data.append({'username': user.username, 'avatar': user.avatar, 'userid': user.userid})
 
     return JsonResponse(data, safe=False)
 
