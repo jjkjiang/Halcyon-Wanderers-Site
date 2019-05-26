@@ -12,7 +12,6 @@ from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
 from hwevents.models import Event, Participant
-from hwevents import bot
 
 
 # Create your views here.
@@ -118,7 +117,9 @@ def index(request, page=1):
             event = form.save(commit=False)
             event.writer = request.user
             event.save()
-            bot.alert(9)
+            image = 'http://imehi.me/media/' + str(event.image)
+            url = 'https://imehi.me/id/' + str(event.id)
+            subprocess.run(['python', 'hwevents/bot_event_created.py', event.title, url, event.description, image])
 
             return HttpResponseRedirect('/')
         else:
