@@ -1,6 +1,7 @@
 import datetime
 import math
 import sys
+import subprocess
 
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
@@ -11,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
 from hwevents.models import Event, Participant
+from hwevents import bot
 
 
 # Create your views here.
@@ -116,6 +118,7 @@ def index(request, page=1):
             event = form.save(commit=False)
             event.writer = request.user
             event.save()
+            bot.alert(9)
 
             return HttpResponseRedirect('/')
         else:
