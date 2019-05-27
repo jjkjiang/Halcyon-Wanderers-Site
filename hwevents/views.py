@@ -88,7 +88,11 @@ class EventCreateForm(ModelForm):
     """
 
     event_date = DateTimeField(
-        widget=DateTimePicker
+        widget=DateTimePicker(
+            options={
+                "icons": {"time": "far fa-clock"}
+            }
+        )
     )
 
     class Meta:
