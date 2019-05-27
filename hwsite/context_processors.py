@@ -28,7 +28,8 @@ def discord_extra_auth(request):
 def user_events(request):
     if hasattr(request, 'user'):
         try:
-            events = Event.objects.filter(participant__user=request.user, event_date__gte=datetime.datetime.now())
+            events = Event.objects.filter(participant__user=request.user, event_date__gte=datetime.datetime.now())\
+                .order_by('event_date')
 
             return {
                 'user_events': events,
