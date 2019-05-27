@@ -22,6 +22,7 @@ $(document).ready(function () {
 
             modal = $('#modalBody').eq(0).empty();
 
+            card.find('.attendance-count').eq(0).text(data.length);
 
             if (data.length === 0) {
                 modal.append(

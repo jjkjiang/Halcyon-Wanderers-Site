@@ -1,4 +1,5 @@
 import datetime
+
 import math
 import sys
 
@@ -109,6 +110,31 @@ def index(request, page=1):
     :param request: Request data
     :return: Rendered index page
     """
+
+    page = page - 1
+    lower_page = 0 + (10 * page)
+    upper_page = 10 + (10 * page)
+
+    newest_events = Event.objects \
+                        .filter(event_date__gt=datetime.datetime.now()) \
+                        .annotate(going=Count('participants')) \
+                        .order_by('event_date')
+
+    pages = math.ceil(newest_events.count() / 10)
+
+    if request.user.is_authenticated:
+        user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
+        newest_events = newest_events.annotate(user_going=Exists(user_events))
+
+    create_form = EventCreateForm()
+
+    return render(request, 'index.html', context={'events': newest_events[lower_page:upper_page],
+                                                  'form': create_form,
+                                                  'pages': range(1, pages + 1),
+                                                  'active_page': page + 1})
+
+
+def create_event_view(request):
     if request.method == "POST":
         form = EventCreateForm(request.POST, request.FILES)
 
@@ -120,31 +146,9 @@ def index(request, page=1):
             return HttpResponseRedirect('/')
         else:
             return HttpResponse(form.errors)
-    elif request.method == "GET":
-        page = page - 1
-        lower_page = 0 + (10 * page)
-        upper_page = 10 + (10 * page)
-
-        newest_events = Event.objects \
-                            .filter(event_date__gt=datetime.datetime.now()) \
-                            .annotate(going=Count('participants')) \
-                            .order_by('event_date')
-
-        pages = math.ceil(newest_events.count() / 10)
-
-        if request.user.is_authenticated:
-            user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
-            newest_events = newest_events.annotate(user_going=Exists(user_events))
-
-        create_form = EventCreateForm()
-
-        return render(request, 'index.html', context={'events': newest_events[lower_page:upper_page],
-                                                      'form': create_form,
-                                                      'pages': range(1, pages + 1),
-                                                      'active_page': page + 1})
 
 
-def all_view(request, page):
+def all_events_view(request, page):
     if not page:
         return HttpResponseRedirect('/')
     page = page - 1
@@ -167,10 +171,10 @@ def all_view(request, page):
                                                   'active_page': page + 1})
 
 
-def detail_view(request, id):
+def detail_view(request, slug, id):
     card = Event.objects \
         .annotate(going=Count('participants')) \
-        .filter(id=id)
+        .filter(slug=slug, id=id)
 
     if request.user.is_authenticated:
         user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))

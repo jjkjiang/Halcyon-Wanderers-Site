@@ -30,7 +30,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'apple-icon-144x144.png' %}">
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'apple-icon-15K2x152.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'android-icon-192x192.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
@@ -40,7 +40,7 @@
     <meta name="theme-color" content="#ffffff">
 
     {% if form %}
-    {{ form.media }}
+        {{ form.media }}
     {% endif %}
 
     <script src="{% static 'js/attend.js' %}"></script>
@@ -48,7 +48,7 @@
 </head>
 <body>
 {% block header %}
-{% include "navbar.html" with active='events' %}
+    {% include "navbar.html" with active='events' %}
 {% endblock header %}
 <div class="container-fluid">
     <div class="row mt-2">
@@ -72,20 +72,20 @@
                     <img class="card-img-top"
                          src="{{ event.image.url }}"
                          alt="Card image cap">
-                    <div class="card-header"><a href="/id/{{ event.pk }}"><h2>{{ event.title }}</h2></a></div>
+                    <div class="card-header"><a href="/id/{{ event.slug }}-{{ event.pk }}"><h2>{{ event.title }}</h2></a></div>
                     <div class="card-body">
                         <p>{{ event.description }}</p>
                         <div class="d-flex">
 
-                        {% if user.is_authenticated %}
-                            {% if not event.user_going %}
-                            <button type="button" class="btn btn-success attend">I'm going</button>
+                            {% if user.is_authenticated %}
+                                {% if not event.user_going %}
+                                    <button type="button" class="btn btn-success attend">I'm going</button>
+                                {% else %}
+                                    <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
+                                {% endif %}
                             {% else %}
-                            <button type="button" class="btn btn-warning cancel-attend">Cancel</button>
+                                <button type="button" class="btn btn-success disabled">Login to attend!</button>
                             {% endif %}
-                        {% else %}
-                            <button type="button" class="btn btn-success disabled">Login to attend!</button>
-                        {% endif %}
                             <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
                         </div>
                     </div>
@@ -93,7 +93,8 @@
                         <div class="text-left">
                             <i class="fa fa-clock"></i> {{ event.event_date }} EST
                         </div>
-                        <a class="ml-auto text-right participant-detail" data-toggle="modal" data-target="#modal" href="#">
+                        <a class="ml-auto text-right participant-detail" data-toggle="modal" data-target="#modal"
+                           href="#">
                             {% csrf_token %}
                             <i class="fa fa-user"></i>
                             <span class="attendance-count"> {{ event.going }}</span>
@@ -105,9 +106,9 @@
             <div class="my-3 d-flex justify-content-center">
                 <ul class="pagination">
                     {% for page in pages %}
-                    <li class="page-item {% if active_page == page %} active {% endif %}">
-                        <a class="page-link" href="../{{ page }}">{{ page }}</a>
-                    </li>
+                        <li class="page-item {% if active_page == page %} active {% endif %}">
+                            <a class="page-link" href="../{{ page }}">{{ page }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -117,27 +118,27 @@
 
 
         {% if form %}
-        <div class="col-md-4 mt-3 d-none d-md-block">
-            {{ form.errors }}
-            {{ form.non_field_errors }}
+            <div class="col-md-4 mt-3 d-none d-md-block">
+                {{ form.errors }}
+                {{ form.non_field_errors }}
 
-            <div class="card border-primary mr-4">
-                <div class="card-header">
-                    <h2>Create an event!</h2>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form | crispy }}
-                        {% if user.is_authenticated %}
-                            <button type="submit" class="btn btn-success">Save</button>
-                        {% else %}
-                            <button type="button" class="btn btn-warning disabled">Login to post!</button>
-                        {% endif %}
-                    </form>
+                <div class="card border-primary mr-4">
+                    <div class="card-header">
+                        <h2>Create an event!</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/create/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            {% if user.is_authenticated %}
+                                <button type="submit" class="btn btn-success">Save</button>
+                            {% else %}
+                                <button type="button" class="btn btn-warning disabled">Login to post!</button>
+                            {% endif %}
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endif %}
     </div>
 </div>
