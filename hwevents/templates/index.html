@@ -144,17 +144,9 @@
     </div>
 </div>
 
-<footer class="page-footer bg-primary">
-    <div class="container text-center text-white">
-        <div class="row">
-            <div class="col-md-12 mb-3 my-3">
-                <a href="https://github.com/jjkjiang/Halcyon-Wanderers-Site">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</footer>
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock footer %}
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="test" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
