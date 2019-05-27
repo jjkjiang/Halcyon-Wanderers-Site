@@ -1,4 +1,7 @@
+import datetime
+
 from hwauth.models import DiscordID
+from hwevents.models import Event
 
 
 def discord_extra_auth(request):
@@ -17,6 +20,18 @@ def discord_extra_auth(request):
 
             return {
                 'discord': discord,
+            }
+        except:
+            return {}
+
+
+def user_events(request):
+    if hasattr(request, 'user'):
+        try:
+            events = Event.objects.filter(participant__user=request.user, event_date__gte=datetime.datetime.now())
+
+            return {
+                'user_events': events,
             }
         except:
             return {}
