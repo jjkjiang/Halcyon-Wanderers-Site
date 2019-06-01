@@ -5,15 +5,14 @@
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static 'css/theme.css' %}" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+{% include 'headers.html' %}
 {% endblock css %}
 
 {% block title %}Halcyon Wanderers &mdash; {% block sub_title %}{% endblock sub_title %}{% endblock title %}
 
 {% block body %}
 {% block header %}
-{% include "navbar.html" with active="forum" %}
+{% include "navbar.html" with active="forums" %}
 {% endblock header %}
 <div class="my-5 container" id="main_container">
   <div class="row">
