@@ -32,3 +32,8 @@ footer {
 .bg-light {
     filter: brightness(95%);
 }
+
+.nav-pills {
+    display: flex;
+    justify-content: center;
+}
