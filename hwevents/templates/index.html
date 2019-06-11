@@ -33,11 +33,11 @@
         </ul>
     </div>
     <div class="row">
-        <div class="col-md-4 text-center mt-3 d-none d-md-block">
+        <div class="col-lg-4 text-center mt-3 d-none d-lg-block">
             <div class="card shadow">
                 <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-                            <h2 style="color: black;">My events</h2>
+                            <h2 style="color: black;">My Events</h2>
                         </li>
                     {% for event in user_events %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4">
             {% for event in events %}
                 <div class="card my-3 shadow" id="{{ event.pk }}">
                     <img class="card-img-top"
@@ -109,13 +109,13 @@
 
 
         {% if form %}
-            <div class="col-md-4 mt-3 d-none d-md-block">
+            <div class="col-md-12 col-lg-4 mt-3">
                 {{ form.errors }}
                 {{ form.non_field_errors }}
 
                 <div class="card mr-4 shadow">
                     <div class="card-header bg-light">
-                        <h2>Create an event</h2>
+                        <h2>Create an Event</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="/create/" enctype="multipart/form-data">
