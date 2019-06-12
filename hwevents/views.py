@@ -61,6 +61,17 @@ def cancel(request):
     else:
         return HttpResponse(500)
 
+@csrf_exempt
+def get_events(request):
+    event_id = request.POST.get('event')
+    events = Event.objects.filter(id=event_id)
+    data = []
+    for event in events:
+        image = 'http://imehi.me/media/' + str(event.image)
+        url = 'https://imehi.me/id/' + event.title.replace(" ", "-") + "-" + str(event.id)
+        data.append({'title': event.title, 'description': event.description, 'image': image, 'url': url})
+    return JsonResponse(data, safe=False)
+    
 
 @csrf_exempt
 def get_participants(request):
@@ -117,9 +128,7 @@ def index(request, page=1):
             event = form.save(commit=False)
             event.writer = request.user
             event.save()
-            image = 'http://imehi.me/media/' + str(event.image)
-            url = 'https://imehi.me/id/' + str(event.id)
-            subprocess.run(['python', 'hwevents/bot_event_created.py', event.title, url, event.description, image])
+            subprocess.run(['python', 'hwevents/bot_event_created.py', str(event.id)])
 
             return HttpResponseRedirect('/')
         else:

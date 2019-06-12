@@ -33,14 +33,20 @@ async def on_ready():
 
     #go through all channels the bot has access to, find specified channel
     for channel in channels:
-        print(channel.name)
         if channel.id == channelid:
-            embed = discord.Embed(title="Tile", description="Desc", color=0x00ff00)
+            embed = discord.Embed(title="Tile", description="Desc", color=0xfaa620)
             message = ""
+            pingMessage = ""
             for id in pingList:
                 user = await guild.fetch_member(id)
-                embed.add_field(name=user.display_name, value=user.mention, inline=True)
+                message += user.display_name + '\n'
+                pingMessage += user.mention + '\n'
+            if message ==  "":
+                message = "None"
+            embed.add_field(name="Participants:", value=message, inline=False)
             await channel.send(embed=embed)
+            temp = await channel.send(pingMessage)
+            await temp.delete()
             await sys.exit()
             
 client.run(token)

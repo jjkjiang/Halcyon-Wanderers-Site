@@ -8,5 +8,6 @@ urlpatterns = [
     path('id/<int:id>/', views.detail_view, name="detail_view"),
     path('attendance/going/', views.attend, name='attend'),
     path('attendance/cancel/', views.cancel, name='cancel'),
-    path('participants/', views.get_participants, name='get_participants')
+    path('participants/', views.get_participants, name='get_participants'),
+    path('event/', views.get_events, name='get_events')
 ]
