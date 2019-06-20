@@ -6,6 +6,8 @@ import asyncio
 
 from django.conf import settings
 
+channelid = int(os.environ['CHANNEL'])
+token = os.environ['TOKEN']
 event = sys.argv[1]
 
 #Connect to website and pull json for specified event
@@ -17,12 +19,6 @@ event_json = json.loads(response.text)
 pingList = []
 for entry in event_json:
     pingList.append(entry["userid"])
-
-#get bot token
-token = 'NTc3NTkwNzY3OTc1OTIzNzMz.XNnSCw.NfIFc7LqXdVeVajYLvIxpFcVuCA'#settings.DISCORD_TOKEN
-
-#get channel to send message to
-channelid = 577895915319459862 #settings.HW_CHANNEL
 
 client = discord.Client()
 
