@@ -21,5 +21,4 @@ DATABASES = {
 }
 
 # Placeholders
-DISCORD_CLIENT_SECRET = ''
-DISCORD_CLIENT_ID = ''
+

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import os
+
 # Create your models here.
 from django.utils.text import slugify
 
@@ -36,3 +38,4 @@ class Participant(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'event'], name='unique_participant')
         ]
+
