@@ -10,7 +10,7 @@ token = os.environ['TOKEN']
 event_id = sys.argv[1]
 
 #Connect to website and pull json for specified event
-url = "http://127.0.0.1:8000/event/"
+url = "https://imehi.me/event/"
 data = {'event':event_id} 
 response = requests.post(url = url, data = data)
 event_json = json.loads(response.text)
