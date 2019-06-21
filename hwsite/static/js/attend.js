@@ -1,13 +1,26 @@
 $(document).ready(function () {
     $(document).on("click", ".dropdown-menu button", function () {
-        const btn = $(".btn:nth-child(2)");
-        btn.text($(this).text());
-        btn.val($(this).text());
+        const btn = $(this).parent().prev();
+
+        btn.html($(this).html());
+        btn.val($(this).text().trim());
     });
 
     $(document).on("click", ".attend", function () {
         const card = $(this).closest('[id]');
         const eventid = card.attr('id');
+        let role = null;
+
+        console.log($(this).next().val());
+
+        if (card.hasClass("hasrole")) {
+            if ($(this).next().val() === "") {
+                alert("Pick a role!");
+                return;
+            }
+
+            role = $(this).next().val();
+        }
 
         $.ajax({
             type: 'POST',
@@ -15,6 +28,7 @@ $(document).ready(function () {
             data: {
                 'event': eventid,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'role': role,
             },
             success: UpdateAttendance,
             error: failure,

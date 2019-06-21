@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
-from hwevents.models import Event, Participant, Game
+from hwevents.models import Event, Participant, Game, ParticipantRole, Role
 
 
 # Create your views here.
@@ -28,16 +28,22 @@ def attend(request):
     :return: Http response denoting success or failure
     """
     event_id = request.POST.get('event')
-    print(event_id, file=sys.stderr)
+    role = request.POST.get('role')
 
     user = request.user
     event = Event.objects.get(pk=event_id)
 
-    if not Participant.objects.filter(user=user, event=event).exists():
-        Participant.objects.create(user=user, event=event)
-        return HttpResponse(201)
+    if event.has_role:
+        if role:
+            participant = Participant.objects.create(user=user, event=event)
+            roleobj = Role.objects.get(name=role)
+            ParticipantRole.objects.create(participant=participant, role=roleobj)
+        else:
+            return HttpResponse(500)
     else:
-        return HttpResponse(500)
+        Participant.objects.create(user=user, event=event)
+
+    return HttpResponse(201)
 
 
 def cancel(request):
@@ -55,11 +61,8 @@ def cancel(request):
     user = request.user
     event = Event.objects.get(pk=event_id)
 
-    if Participant.objects.filter(user=user, event=event).exists():
-        Participant.objects.get(user=user, event=event).delete()
-        return HttpResponse(200)
-    else:
-        return HttpResponse(500)
+    Participant.objects.get(user=user, event=event).delete()
+    return HttpResponse(200)
 
 
 @csrf_exempt
@@ -67,16 +70,29 @@ def get_participants(request):
     """
     Filters for participants by the passed in event id, and returns a list of users that are going to
     the event. Also includes discord IDs of those users.
+
+    If the event has roles, fetch role data as well
     :param request: Request data
     :return: JSON containing an array of username + avatar objects
     """
     event_id = request.POST.get('event')
+    event = Event.objects.get(id=event_id)
 
-    users = query_participants(event_id)
+    users = query_participants(event)
 
     data = []
     for user in users:
-        data.append({'username': user.username, 'avatar': user.avatar, 'userid': user.userid})
+        dictionary = {'username': user.username,
+                      'avatar': user.avatar,
+                      'userid': user.userid}
+
+        if event.has_role:
+            role = Role.objects.get(id=user.role)
+
+            dictionary['role'] = role.name
+            dictionary['roleicon'] = role.icon.url
+
+        data.append(dictionary)
 
     return JsonResponse(data, safe=False)
 
@@ -189,14 +205,15 @@ def detail_view(request, slug, id):
 
 # Helper functions
 
-def query_participants(event_id):
+def query_participants(event):
     """
     Obtains list of user objects with avatars and discord id annotated as fields
-    :param event_id: event id to query by
+    :param event: event to query by
     :return: iterable queryset of user objects
     """
-    participants = Participant.objects.filter(event=event_id)
+    participants = Participant.objects.filter(event=event)
     users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'),
-                                                                userid=F('discordid__discord_id'))
+                                                                userid=F('discordid__discord_id'),
+                                                                role=F('participant__participant__participantrole__role'))
 
     return users

@@ -20,7 +20,10 @@ $(document).ready(function () {
 
             console.log(data);
 
-            modal = $('#modalBody').eq(0).empty();
+            modal = $('#modalBody')
+                .eq(0).empty()
+                .addClass('list-group')
+                .addClass('list-group-flush');
 
             card.find('.attendance-count').eq(0).text(data.length);
 
@@ -32,18 +35,38 @@ $(document).ready(function () {
             }
 
             for (let i = 0; i < data.length; i++) {
-                modal.append(
-                    $('<li>').append(
-                        $('<p>').prepend(
-                            $('<img>').attr('src', data[i]["avatar"]).attr('style', 'height:38px')
-                        ).append(" " + data[i]["username"])
-                    )
-                );
+                let li = $('<li>')
+                    .addClass('list-group-item')
+                    .attr('style', 'width:100%;')
+                    .appendTo(modal);
+                let context = $('<p>');
+
+                let img = $('<img>')
+                    .addClass('img-responsive')
+                    .attr('src', data[i]["avatar"])
+                    .attr('style', 'height:38px;')
+                    .appendTo(context);
+
+                context.append(" " + data[i]["username"]);
+
+                if (card.hasClass("hasrole")) {
+                    context.append(":   ");
+
+                    let icon = $('<img>')
+                        .addClass('img-responsive')
+                        .attr('src', data[i]["roleicon"])
+                        .attr('style', 'height:30px;')
+                        .appendTo(context);
+
+                    context.append(data[i]["role"]);
+                }
+
+                context.appendTo(li);
             }
         }
     });
 
     function failure(data, textStatus, jqXHR) {
-        alert("failure!" + data)
+        alert("failure!" + data);
     }
 });

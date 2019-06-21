@@ -68,9 +68,9 @@
                             <div class="btn-group">
                                 {% if user.is_authenticated %}
                                     {% if not event.user_going %}
-                                        <button type="button" class="btn btn-warning cancel-attend shadow">Cancel</button>
-                                    {% else %}
                                         <button type="button" class="btn btn-success attend shadow">I'm going</button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-warning cancel-attend shadow">Cancel</button>
                                     {% endif %}
 
                                     {% if event.has_role %}
@@ -81,7 +81,10 @@
 
                                         <div class="dropdown-menu">
                                             {% for role in roles %}
-                                                <button class="dropdown-item" type="button">{{ role.name }}</button>
+                                                <button class="dropdown-item" type="button">
+                                                    <img class="img-responsive" style="height:20px;" src="{{ role.icon.url }}"/>
+                                                    {{ role.name }}
+                                                </button>
                                             {% endfor %}
                                         </div>
 
