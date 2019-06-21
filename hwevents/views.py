@@ -87,7 +87,7 @@ def get_participants(request):
                       'userid': user.userid}
 
         if event.has_role:
-            role = Role.objects.get(id=user.role)
+            role = Role.objects.get(participantrole__participant__user=user.id)
 
             dictionary['role'] = role.name
             dictionary['roleicon'] = role.icon.url
@@ -136,9 +136,9 @@ def index(request, page=1):
     upper_page = 10 + (10 * page)
 
     newest_events = Event.objects \
-                        .filter(event_date__gt=datetime.datetime.now()) \
-                        .annotate(going=Count('participants')) \
-                        .order_by('event_date')
+        .filter(event_date__gt=datetime.datetime.now()) \
+        .annotate(going=Count('participants')) \
+        .order_by('event_date')
 
     pages = math.ceil(newest_events.count() / 10)
 
@@ -177,8 +177,8 @@ def all_events_view(request, page):
     upper_page = 10 + (10 * page)
 
     page_events = Event.objects \
-                      .annotate(going=Count('participants')) \
-                      .order_by('event_date')
+        .annotate(going=Count('participants')) \
+        .order_by('event_date')
 
     if request.user.is_authenticated:
         user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
@@ -212,8 +212,8 @@ def query_participants(event):
     :return: iterable queryset of user objects
     """
     participants = Participant.objects.filter(event=event)
-    users = User.objects.filter(user__in=participants).annotate(avatar=F('discordid__avatar'),
-                                                                userid=F('discordid__discord_id'),
-                                                                role=F('participant__participant__participantrole__role'))
+    users = User.objects.filter(user__in=participants) \
+        .annotate(avatar=F('discordid__avatar'),
+                  userid=F('discordid__discord_id'))
 
     return users
