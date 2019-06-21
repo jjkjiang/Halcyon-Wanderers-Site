@@ -87,12 +87,13 @@ def get_participants(request):
                       'userid': user.userid}
 
         if event.has_role:
-            role = Role.objects.get(participantrole__participant__user=user.id)
+            role = Role.objects.get(participantrole__participant__user=user.id, participantrole__participant__event=event)
 
             dictionary['role'] = role.name
             dictionary['roleicon'] = role.icon.url
 
         data.append(dictionary)
+
 
     return JsonResponse(data, safe=False)
 
