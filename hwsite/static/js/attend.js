@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $(document).on("click", ".dropdown-menu button", function () {
+        const btn = $(".btn:nth-child(2)");
+        btn.text($(this).text());
+        btn.val($(this).text());
+    });
+
     $(document).on("click", ".attend", function () {
         const card = $(this).closest('[id]');
         const eventid = card.attr('id');

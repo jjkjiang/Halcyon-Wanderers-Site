@@ -90,6 +90,7 @@ TEMPLATES = [
                 'machina.core.context_processors.metadata',
                 'hwsite.context_processors.discord_extra_auth',
                 'hwsite.context_processors.user_events',
+                'hwsite.context_processors.fetch_roles',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',

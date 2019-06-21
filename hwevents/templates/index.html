@@ -30,7 +30,7 @@
             </nav>
         </div>
     </div>
-    <div class="row mx-3">
+    <div class="row mx-1">
         <div class="col-lg-4 text-center mt-3 d-none d-lg-block">
             <div class="card shadow">
                 <ul class="list-group list-group-flush">
@@ -51,7 +51,7 @@
 
         <div class="col-md-12 col-lg-4">
             {% for event in events %}
-                <div class="card my-3 shadow" id="{{ event.pk }}">
+                <div class="card my-3 shadow {% if event.has_role %}hasrole{% endif %}" id="{{ event.pk }}">
                     <img class="card-img-top"
                          src="{{ event.image.url }}"
                          alt="Card image cap">
@@ -65,16 +65,33 @@
                     <div class="card-body">
                         <p class="card-text">{{ event.description }}</p>
                         <div class="d-flex">
+                            <div class="btn-group">
+                                {% if user.is_authenticated %}
+                                    {% if not event.user_going %}
+                                        <button type="button" class="btn btn-warning cancel-attend shadow">Cancel</button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-success attend shadow">I'm going</button>
+                                    {% endif %}
 
-                            {% if user.is_authenticated %}
-                                {% if not event.user_going %}
-                                    <button type="button" class="btn btn-success attend shadow">I'm going</button>
+                                    {% if event.has_role %}
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            <span id="{{ event.id }}_option">pick a role</span>
+                                        </button>
+
+                                        <div class="dropdown-menu">
+                                            {% for role in roles %}
+                                                <button class="dropdown-item" type="button">{{ role.name }}</button>
+                                            {% endfor %}
+                                        </div>
+
+                                    {% endif %}
+
                                 {% else %}
-                                    <button type="button" class="btn btn-warning cancel-attend shadow">Cancel</button>
+                                    <button type="button" class="btn btn-success disabled">Login to attend!</button>
                                 {% endif %}
-                            {% else %}
-                                <button type="button" class="btn btn-success disabled">Login to attend!</button>
-                            {% endif %}
+                            </div>
+
                             <p class="text-muted ml-auto">-{{ event.writer.username }}</p>
                         </div>
                     </div>

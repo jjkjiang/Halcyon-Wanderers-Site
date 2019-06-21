@@ -17,3 +17,5 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Event, EventAdmin)
+admin.site.register(Game)
+admin.site.register(Role)

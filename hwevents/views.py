@@ -5,13 +5,13 @@ import sys
 
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
-from django.forms import ModelForm, DateTimeField
+from django.forms import ModelForm, DateTimeField, ModelChoiceField
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
-from hwevents.models import Event, Participant
+from hwevents.models import Event, Participant, Game
 
 
 # Create your views here.
@@ -97,7 +97,7 @@ class EventCreateForm(ModelForm):
 
     class Meta:
         model = Event
-        fields = ['title', 'image', 'description', 'event_date']
+        fields = ['title', 'image', 'description', 'event_date', 'has_role', 'game']
 
 
 def index(request, page=1):

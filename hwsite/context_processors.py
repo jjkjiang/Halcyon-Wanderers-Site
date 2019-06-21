@@ -1,7 +1,7 @@
 import datetime
 
 from hwauth.models import DiscordID
-from hwevents.models import Event
+from hwevents.models import Event, Role
 
 
 def discord_extra_auth(request):
@@ -33,6 +33,20 @@ def user_events(request):
 
             return {
                 'user_events': events,
+            }
+        except:
+            return {}
+
+
+def fetch_roles(request):
+    # grabs all roles (for now)
+
+    if hasattr(request, 'user'):
+        try:
+            roles = Role.objects.all()
+
+            return {
+                'roles': roles,
             }
         except:
             return {}
