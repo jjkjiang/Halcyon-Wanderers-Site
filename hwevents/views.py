@@ -87,13 +87,13 @@ def get_participants(request):
                       'userid': user.userid}
 
         if event.has_role:
-            role = Role.objects.get(participantrole__participant__user=user.id, participantrole__participant__event=event)
+            role = Role.objects.get(participantrole__participant__user=user.id,
+                                    participantrole__participant__event=event)
 
             dictionary['role'] = role.name
             dictionary['roleicon'] = role.icon.url
 
         data.append(dictionary)
-
 
     return JsonResponse(data, safe=False)
 
@@ -202,7 +202,6 @@ def detail_view(request, slug, id):
         card = card.annotate(user_going=Exists(user_events))
 
     return render(request, 'index.html', context={'events': card})
-
 
 # Helper functions
 
