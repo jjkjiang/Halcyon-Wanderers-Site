@@ -1,9 +1,6 @@
 import datetime
 
 import math
-import sys
-import subprocess
-
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
@@ -72,7 +69,7 @@ def get_events(request):
     data = []
     for event in events:
         image = 'http://imehi.me/media/' + str(event.image)
-        url = 'https://imehi.me/id/' + event.title.replace(" ", "-") + "-" + str(event.id)
+        url = 'https://imehi.me/events/id/' + event.title.replace(" ", "-") + "-" + str(event.id)
         data.append({'title': event.title, 'description': event.description, 'image': image, 'url': url})
     return JsonResponse(data, safe=False)
 
@@ -214,7 +211,7 @@ def get_month_events(request, start, end):
     data = []
     for event in events:
         dictionary = {'title': event.title,
-                      'url': f"/id/{event.slug}-{event.id}",
+                      'url': f"/events/id/{event.slug}-{event.id}",
                       'start': event.event_date,
                       'end': event.event_date}
 
