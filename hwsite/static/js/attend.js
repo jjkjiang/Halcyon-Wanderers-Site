@@ -24,7 +24,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/attendance/going/',
+            url: '/events/attendance/going/',
             data: {
                 'event': eventid,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/attendance/cancel/',
+            url: '/events/attendance/cancel/',
             data: {
                 'event': eventid,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),

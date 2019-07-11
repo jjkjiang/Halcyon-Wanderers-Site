@@ -1,0 +1,142 @@
+{% load static %}
+{% load tz %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block headers %}
+        {% include "headers.html" %}
+    {% endblock headers %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .section1 {
+            background-image: url(https://cdn.discordapp.com/attachments/532968642183299082/597099271279345694/ffxiv_07062019_105252_532.png);
+        }
+
+        .section2 {
+            background-image: url(https://media.discordapp.net/attachments/532968642183299082/597844860774514708/ffxiv_07082019_124125_669.png);
+        }
+
+        .section3 {
+            background-image: url("https://media.discordapp.net/attachments/532968642183299082/596840790022684704/ffxiv_dx11_2019-07-05_16-11-52.png");
+        }
+
+        .parallax {
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+
+        .caption {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            color: #000;
+        }
+
+        .caption span {
+            background-color: #3E3F3A;
+            color: #fff;
+            padding: 18px;
+            font-size: 25px;
+            letter-spacing: 10px;
+        }
+
+        .parallax2 {
+            height: 100%;
+            min-height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(180deg) saturate(1000%) contrast(0.8);
+            /* Create the parallax scrolling effect */
+
+            background-image: url(https://i0.wp.com/shardsofimagination.com/wp-content/uploads/2019/07/ffxiv_shadowbringers_title_screen.jpg);
+            background-attachment: fixed;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .filler {
+            padding: 30px 30px;
+            text-align: justify;
+            font-family: "Lato", "sans-serif";
+            line-height: 1.8;
+            font-variant-caps: normal;
+            font-kerning: auto;
+        }
+    </style>
+</head>
+<body>
+{% block nav %}
+    {% include "navbar.html" %}
+{% endblock nav %}
+
+
+<!-- Container element -->
+
+<section class="section1 parallax">
+    <div class="caption">
+        <span>HALCYON WANDERERS</span>
+    </div>
+
+
+</section>
+
+<div class="filler">
+    <h3 class="text-primary">Lorem ipsum</h3>
+    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non orci
+        sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est vitae
+        pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et hendrerit
+        tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta placerat
+        a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget, egestas
+        eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue rhoncus.
+        Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
+        scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. </p>
+</div>
+
+
+<section class="section2 parallax">
+    <div class="caption">
+        <span>HALCYON WANDERERS</span>
+    </div>
+</section>
+
+<section class="section3 parallax">
+    <div class="caption">
+        <span class="border" style="color: white; background-color: rgba(255,255,255,0.3);">HALCYON WANDERERS</span>
+    </div>
+</section>
+
+<div class="filler">
+    <h3 class="text-primary">Lorem ipsum</h3>
+    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non orci
+        sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est vitae
+        pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et hendrerit
+        tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta placerat
+        a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget, egestas
+        eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue rhoncus.
+        Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
+        scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. .</p>
+</div>
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock footer %}
+</body>
+</html>

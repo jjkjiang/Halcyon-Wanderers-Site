@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/participants/',
+            url: '/events/participants/',
             data: {
                 'event': eventid,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
