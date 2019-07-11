@@ -51,7 +51,8 @@
             color: #000;
         }
 
-        .caption span, .caption div {
+        .caption div {
+            display: inline-block;
             background-color: #3E3F3A;
             color: #fff;
             padding: 18px;
@@ -66,10 +67,14 @@
             position: absolute;
         }
 
-        .caption-button span, .caption-button span a {
+        .caption-button div {
+            display: inline-block;
             background-color: #3E3F3A;
-            color: #FFF;
             padding: 18px;
+        }
+
+        .caption-button div a {
+            color: #FFF;
             font-size: 25px;
             letter-spacing: 10px;
         }
@@ -113,11 +118,11 @@
 
 <section class="section1 parallax">
     <div class="caption">
-        <span>HALCYON WANDERERS</span>
+        <div>HALCYON WANDERERS</div>
     </div>
 
     <div class="caption-button">
-        <span><a href="#3">APPLY</a></span>
+        <div><a href="#3">APPLY</a></div>
     </div>
 
 </section>
@@ -146,20 +151,20 @@
 
 <section class="section2 parallax">
     <div class="caption">
-        <span>HALCYON WANDERERS</span>
+        <div>HALCYON WANDERERS</div>
     </div>
 </section>
 
 <section id="3" class="section3 parallax">
     <div class="caption">
-        <span class="border" style="color: white; background-color: rgba(255,255,255,0.3);">HALCYON WANDERERS</span>
+        <div class="border" style="color: white; background-color: rgba(255,255,255,0.3);">HALCYON WANDERERS</div>
     </div>
 </section>
 
 <section id="4" class="section4 parallax">
     <div class="caption">
         <div class="border"
-             style="color: white; background-color: rgba(255,255,255,0.25); margin-left:20vw;margin-right: 20vw;">
+             style="color: white; background-color: rgba(255,255,255,0.25); max-width: 1200px;">
             THIS GETS BAD ON MOBILE, PROBABLY DONT USE IT<br>
 
 
