@@ -1,17 +1,15 @@
 import datetime
 
 import math
-import sys
-
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
-from django.forms import ModelForm, DateTimeField, ModelChoiceField
+from django.forms import ModelForm, DateTimeField
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tempus_dominus.widgets import DateTimePicker
 
-from hwevents.models import Event, Participant, Game, ParticipantRole, Role
+from hwevents.models import Event, Participant, ParticipantRole, Role
 
 
 # Create your views here.
@@ -190,6 +188,25 @@ def all_events_view(request, page):
     return render(request, 'index.html', context={'events': page_events[lower_page:upper_page],
                                                   'pages': range(1, pages + 1),
                                                   'active_page': page + 1})
+
+
+def calendar_view(request):
+    return render(request, 'calendar.html')
+
+
+def get_month_events(request, start, end):
+    events = Event.objects.filter(event_date__gte=start, event_date__lte=end)
+
+    data = []
+    for event in events:
+        dictionary = {'title': event.title,
+                      'url': f"/id/{event.slug}-{event.id}",
+                      'start': event.event_date,
+                      'end': event.event_date}
+
+        data.append(dictionary)
+
+    return JsonResponse(data, safe=False)
 
 
 def detail_view(request, slug, id):
