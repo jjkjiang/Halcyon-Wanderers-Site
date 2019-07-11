@@ -24,6 +24,14 @@
             background-image: url("https://media.discordapp.net/attachments/532968642183299082/596840790022684704/ffxiv_dx11_2019-07-05_16-11-52.png");
         }
 
+        .section4 {
+            background-image: url("https://media.discordapp.net/attachments/532968642183299082/592959621967118346/ffxiv_03262019_181931_424.png");
+        }
+
+        .section5 .section-right {
+            background-image: url("https://cdn.discordapp.com/attachments/532968642183299082/588231205196136449/ffxiv_dx11_2019-06-11_22-00-28.png");
+        }
+
         .parallax {
             position: relative;
             background-attachment: fixed;
@@ -43,13 +51,29 @@
             color: #000;
         }
 
-        .caption span {
+        .caption span, .caption div {
             background-color: #3E3F3A;
             color: #fff;
             padding: 18px;
             font-size: 25px;
             letter-spacing: 10px;
         }
+
+        .caption-button {
+            top: 70%;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+        }
+
+        .caption-button span, .caption-button span a {
+            background-color: #3E3F3A;
+            color: #FFF;
+            padding: 18px;
+            font-size: 25px;
+            letter-spacing: 10px;
+        }
+
 
         .parallax2 {
             height: 100%;
@@ -92,21 +116,33 @@
         <span>HALCYON WANDERERS</span>
     </div>
 
+    <div class="caption-button">
+        <span><a href="#3">APPLY</a></span>
+    </div>
 
 </section>
 
-<div class="filler">
-    <h3 class="text-primary">Lorem ipsum</h3>
-    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non orci
-        sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est vitae
-        pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et hendrerit
-        tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta placerat
-        a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget, egestas
-        eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue rhoncus.
-        Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
-        scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. </p>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="filler col-lg-9">
+            <h3 class="text-primary">Lorem ipsum</h3>
+            <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non
+                orci
+                sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est
+                vitae
+                pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et
+                hendrerit
+                tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta
+                placerat
+                a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget,
+                egestas
+                eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue
+                rhoncus.
+                Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
+                scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. </p>
+        </div>
+    </div>
 </div>
-
 
 <section class="section2 parallax">
     <div class="caption">
@@ -114,26 +150,132 @@
     </div>
 </section>
 
-<section class="section3 parallax">
+<section id="3" class="section3 parallax">
     <div class="caption">
         <span class="border" style="color: white; background-color: rgba(255,255,255,0.3);">HALCYON WANDERERS</span>
     </div>
 </section>
 
-<div class="filler">
-    <h3 class="text-primary">Lorem ipsum</h3>
-    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non orci
-        sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est vitae
-        pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et hendrerit
-        tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta placerat
-        a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget, egestas
-        eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue rhoncus.
-        Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
-        scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. .</p>
+<section id="4" class="section4 parallax">
+    <div class="caption">
+        <div class="border"
+             style="color: white; background-color: rgba(255,255,255,0.25); margin-left:20vw;margin-right: 20vw;">
+            THIS GETS BAD ON MOBILE, PROBABLY DONT USE IT<br>
+
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non orci
+            sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est vitae
+            pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc.
+        </div>
+    </div>
+</section>
+
+<section id="5" class="section5" style="max-width: 100%; overflow-x:hidden">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="section-left parallax col-lg-4 bg-light text-center">
+                <h1 class="text-primary p-5">LOREM IPSUM</h1>
+                <h3 class="text-secondary p-5">
+
+                    A lot of these were just written to show possibilities and are not exhaustive, nor necessary if they
+                    don't look very good. You can preview how certain things look on mobile from the web browser through
+                    developer settings.
+                </h3>
+
+                <i class="fa fa-arrow-circle-right fa-5x fa-align-center"></i>
+            </div>
+
+            <div class="section-right parallax col-lg-8 d-none d-md-block"
+                 style="background-position: left 17vw center"></div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="filler col-lg-9">
+            <h3 class="text-primary">Lorem ipsum</h3>
+            <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor non
+                orci
+                sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor, est
+                vitae
+                pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et
+                hendrerit
+                tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus porta
+                placerat
+                a et velit. Sed ac ullamcorper massa, ac ultricies dolor. Aliquam sem nunc, laoreet eget posuere eget,
+                egestas
+                eu erat. Integer nec nisl non ligula iaculis fermentum a a nisl. Suspendisse id justo nec dolor congue
+                rhoncus.
+                Sed ante tellus, tincidunt at vestibulum nec, luctus in neque. Vivamus eget pharetra risus. Etiam non
+                scelerisque leo. Nunc rutrum rutrum suscipit. Vivamus id nibh vel odio rhoncus finibus in eu elit. </p>
+        </div>
+    </div>
+
+    <div class="filler bg-light">
+        <h1 class="text-primary text-center">Lorem ipsum</h1>
+        <div class="row justify-content-center mt-3">
+            <div class="col-lg-3">
+                <i class="fa fa-user fa-5x mb-2" style="alignment: left"></i>
+                <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor
+                    non
+                    orci
+                    sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor,
+                    est
+                    vitae
+                    pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et
+                    hendrerit
+                    tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus
+                    porta
+                    placerat
+                    a et velit. Sed ac ullamcorper massa, ac ultricies dolor.</p>
+            </div>
+            <div class="col-lg-3">
+                <i class="fa fa-home fa-5x mb-2" style="alignment: left"></i>
+                <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor
+                    non
+                    orci
+                    sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor,
+                    est
+                    vitae
+                    pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et
+                    hendrerit
+                    tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus
+                    porta
+                    placerat
+                    a et velit. Sed ac ullamcorper massa, ac ultricies dolor.</p>
+            </div>
+            <div class="col-lg-3">
+                <i class="fa fa-gamepad fa-5x mb-2" style="alignment: left"></i>
+                <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis tortor
+                    non
+                    orci
+                    sodales finibus. Aenean magna diam, consequat a faucibus eu, venenatis eget ligula. Mauris tempor,
+                    est
+                    vitae
+                    pellentesque porta, dui orci ultricies nulla, ut semper ex mi vel nunc. Integer ultrices, libero et
+                    hendrerit
+                    tempus, nulla purus consectetur mauris, a placerat eros arcu non lacus. Ut commodo elit at metus
+                    porta
+                    placerat
+                    a et velit. Sed ac ullamcorper massa, ac ultricies dolor.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% block footer %}
     {% include "footer.html" %}
 {% endblock footer %}
 </body>
+
+<script>
+    $(".caption-button").click(function () {
+        $('html,body').animate({
+                scrollTop: $("#4").offset().top
+            },
+            'slow');
+    });
+</script>
 </html>
