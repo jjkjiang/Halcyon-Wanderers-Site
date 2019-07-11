@@ -13,4 +13,5 @@ urlpatterns = [
     path('attendance/going/', views.attend, name='attend'),
     path('attendance/cancel/', views.cancel, name='cancel'),
     path('participants/', views.get_participants, name='get_participants'),
+    path('event/', views.get_events, name='get_events')
 ]

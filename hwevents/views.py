@@ -1,6 +1,9 @@
 import datetime
 
 import math
+import sys
+import subprocess
+
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
@@ -61,6 +64,17 @@ def cancel(request):
 
     Participant.objects.get(user=user, event=event).delete()
     return HttpResponse(200)
+
+@csrf_exempt
+def get_events(request):
+    event_id = request.POST.get('event')
+    events = Event.objects.filter(id=event_id)
+    data = []
+    for event in events:
+        image = 'http://imehi.me/media/' + str(event.image)
+        url = 'https://imehi.me/id/' + event.title.replace(" ", "-") + "-" + str(event.id)
+        data.append({'title': event.title, 'description': event.description, 'image': image, 'url': url})
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
