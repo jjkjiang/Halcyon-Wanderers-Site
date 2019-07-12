@@ -14,6 +14,7 @@
     <style>
         .section1 {
             background-image: url(https://cdn.discordapp.com/attachments/532968642183299082/597099271279345694/ffxiv_07062019_105252_532.png);
+
         }
 
         .section2 {
@@ -39,6 +40,19 @@
             background-repeat: no-repeat;
             background-size: cover;
             min-height: 100vh;
+            z-index: 0;
+        }
+
+        .parallax:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            background-color: rgba(0, 0, 0, 0.35);
+            z-index: -2;
         }
 
 
@@ -51,7 +65,7 @@
             color: #000;
         }
 
-        .caption div {
+        .caption div, .caption-button div a {
             display: inline-block;
             background-color: #3E3F3A;
             color: #fff;
@@ -67,37 +81,6 @@
             position: absolute;
         }
 
-        .caption-button div {
-            display: inline-block;
-            background-color: #3E3F3A;
-            padding: 18px;
-        }
-
-        .caption-button div a {
-            color: #FFF;
-            font-size: 25px;
-            letter-spacing: 10px;
-        }
-
-
-        .parallax2 {
-            height: 100%;
-            min-height: 100%;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            object-fit: cover;
-            filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(180deg) saturate(1000%) contrast(0.8);
-            /* Create the parallax scrolling effect */
-
-            background-image: url(https://i0.wp.com/shardsofimagination.com/wp-content/uploads/2019/07/ffxiv_shadowbringers_title_screen.jpg);
-            background-attachment: fixed;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
         .filler {
             padding: 30px 30px;
             text-align: justify;
@@ -110,7 +93,7 @@
 </head>
 <body>
 {% block nav %}
-    {% include "navbar.html" %}
+    {% include "navbar.html" with frontpage='True' active="landing" %}
 {% endblock nav %}
 
 
@@ -178,7 +161,7 @@
 <section id="5" class="section5" style="max-width: 100%; overflow-x:hidden">
     <div class="container-fluid">
         <div class="row">
-            <div class="section-left parallax col-lg-4 bg-light text-center">
+            <div class="section-left col-lg-4 bg-light text-center">
                 <h1 class="text-primary p-5">LOREM IPSUM</h1>
                 <h3 class="text-secondary p-5">
 

@@ -2,46 +2,76 @@
 {% load forum_permission_tags %}
 
 <!-- of interest: fixed-top, bg-transparent -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
-  <a class="navbar-brand" href="/">{% block brand %}Halcyon Wanderers{% endblock %}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    {% block header_collapse %}
-    <ul class="navbar-nav">
-        <li class="nav-item {% if active == 'events' %}active{% endif %}">
-            <a class="nav-link" href="/events">Events</a>
-        </li>
-        <li class="nav-item {% if active == 'forums' %}active {% endif %}">
-            <a class="nav-link" href="/forum">Forum</a>
-        </li>
-    </ul>
-    <form class="form-inline my-2 ml-3 my-lg-0" role="search" action="{% url 'forum_search:search' %}">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search the forums" aria-label="Search" name="q">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{% trans "Search" %}</button>
-    </form>
-    <div class="navbar-nav mr-auto">
-      <a class="nav-item nav-link" href="{% url 'forum_search:search' %}">{% trans "Advanced search" %}</a>
-    </div>
-    <div class="navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-        <img style="height:38px;" src="{{ discord.avatar }}">
-        <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
-        <a class="nav-item nav-link" href="/auth/logout">Logout</a>
-        {% else %}
-        <a class="nav-item nav-link"
-           href="https://discordapp.com/api/oauth2/authorize?client_id=572994073682509825&redirect_uri=https%3A%2F%2Fimehi.me%2Fauth%2Fdiscord%2F&response_type=code&scope=identify">
-            {% trans "Sign In" %}
-        </a>
+<nav class="navbar navbar-expand-lg navbar-dark {% if frontpage == 'True' %}navbar-transform bg-transparent fixed-top{% else %}bg-primary sticky-top{% endif %}">
+    <a class="navbar-brand" href="/" style="font-size: 1.3em; letter-spacing: 8px; text-transform: uppercase">
+        {% block brand %}Halcyon Wanderers{% endblock %}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        {% if active == 'forums' %}
+            <form class="form-inline my-2 ml-3 my-lg-0" role="search" action="{% url 'forum_search:search' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search the forums" aria-label="Search"
+                       name="q">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{% trans "Search" %}</button>
+            </form>
+            <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'forum_search:search' %}">{% trans "Advanced search" %}</a>
+            </div>
         {% endif %}
 
-        {% if user.is_staff %}
-        <a class="nav-item nav-link" href="/admin">
-            {% trans "Admin" %}
-        </a>
-        {% endif %}
+        {% block header_collapse %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {% if active == 'landing' %}active{% endif %}" href="/">Home</a>
+                </li>
+                <li class="nav-item {% if active == 'events' %}active{% endif %}">
+                    <a class="nav-link" href="/events">Events</a>
+                </li>
+                <li class="nav-item {% if active == 'forums' %}active {% endif %}">
+                    <a class="nav-link" href="/forum">Forum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Apply</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Media</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Static</a>
+                </li>
+                <div class="dropdown-divider"></div>
+            </ul>
+            <div class="navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <img style="height:38px;" src="{{ discord.avatar }}">
+                    <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
+                    <a class="nav-item nav-link" href="/auth/logout">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link"
+                       href="https://discordapp.com/api/oauth2/authorize?client_id=572994073682509825&redirect_uri=https%3A%2F%2Fimehi.me%2Fauth%2Fdiscord%2F&response_type=code&scope=identify">
+                        {% trans "Sign In" %}
+                    </a>
+                {% endif %}
+
+                {% if user.is_staff %}
+                    <a class="nav-item nav-link" href="/admin">
+                        {% trans "Admin" %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endblock header_collapse %}
     </div>
-    {% endblock header_collapse %}
-  </div>
 </nav>
+
+<script>
+    $(function () {
+        $(document).scroll(function () {
+            var $nav = $(".navbar-transform");
+            $nav.toggleClass('bg-primary', $(this).scrollTop() > $nav.height());
+            $nav.toggleClass('bg-transparent', $(this).scrollTop() <= $nav.height());
+        });
+    });
+</script>
