@@ -138,7 +138,7 @@
                         <h2>Create an Event</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="/create/" enctype="multipart/form-data">
+                        <form method="POST" action="{% url "create_event" %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form | crispy }}
                             {% if user.is_authenticated %}

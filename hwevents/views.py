@@ -173,7 +173,7 @@ def create_event_view(request):
             event.writer = request.user
             event.save()
 
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/events')
         else:
             return HttpResponse(form.errors)
 
