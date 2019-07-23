@@ -2,14 +2,14 @@
 <title>Halcyon Wanderers - {{ event.title }}</title>
 <meta name="title" content="Halcyon Wanderers - {{ event.title }}">
 <meta name="description"
-      content="{{ event.description }}">
+      content="{{ event.description }} at {{ event.event_date }} EST">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="{% url 'detail' event.slug event.id %}">
 <meta property="og:title" content="Halcyon Wanderers - {{ event.title }}">
 <meta property="og:description"
-      content="{{ event.description }}">
+      content="{{ event.description }} at {{ event.event_date }} EST">
 <meta property="og:image" content="{{ event.image.url }}">
 
 <!-- Twitter -->
@@ -17,5 +17,5 @@
 <meta property="twitter:url" content="{% url 'detail' event.slug event.id %}">
 <meta property="twitter:title" content="Halcyon Wanderers - {{ event.title }}">
 <meta property="twitter:description"
-      content="{{ event.description }}">
+      content="{{ event.description }} at {{ event.event_date }} EST">
 <meta property="twitter:image" content="{{ event.image.url }}">

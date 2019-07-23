@@ -231,6 +231,7 @@ def detail_view(request, slug, id):
 
 # Helper functions
 
+
 def query_participants(event):
     """
     Obtains list of user objects with avatars and discord id annotated as fields
