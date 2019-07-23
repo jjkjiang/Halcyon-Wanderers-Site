@@ -47,7 +47,7 @@
             </ul>
             <div class="navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <img style="height:38px;" src="{{ discord.avatar }}">
+                    <img style="height:38px;" src="{{ discord.avatar.url }}">
                     <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
                     <a class="nav-item nav-link" href="/auth/logout">Logout</a>
                 {% else %}

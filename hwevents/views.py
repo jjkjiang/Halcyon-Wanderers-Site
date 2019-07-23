@@ -91,8 +91,10 @@ def get_participants(request):
 
     data = []
     for user in users:
+        print(type(user.avatar))
+
         dictionary = {'username': user.username,
-                      'avatar': user.avatar,
+                      'avatar': '/media/' + user.avatar,
                       'userid': user.userid}
 
         if event.has_role:
