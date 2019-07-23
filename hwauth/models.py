@@ -1,4 +1,3 @@
-from django.core.files.uploadedfile import SimpleUploadedFile
 import requests
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -14,8 +13,8 @@ class DiscordID(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     discord_id = models.BigIntegerField()
-    avatar_link = models.URLField()
-    avatar = models.ImageField(upload_to='avatar/', null=True)
+    avatar_link = models.URLField(null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatar/', null=True, blank=True)
 
     def __str__(self):
         return self.user.username
