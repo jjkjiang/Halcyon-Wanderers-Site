@@ -6,6 +6,11 @@
 <html lang="en">
 <head>
     {% block headers %}
+        {% if is_detail %}
+            {% include "detail_metatags.html" with event=events.0 %}
+        {% else %}
+            {% include "default_metatags.html" %}
+        {% endif %}
         {% include "headers.html" %}
     {% endblock headers %}
 

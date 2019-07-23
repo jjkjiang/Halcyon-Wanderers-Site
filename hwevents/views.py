@@ -128,9 +128,6 @@ class EventCreateForm(ModelForm):
 
 def index(request, page=1):
     """
-    TODO: separate form and index for clarity
-    TODO: add scaling beyond 10 events either with fetching or tabulation
-
     Main event page that renders the main template for hwevents with the form and current newest events
 
     If the user is authenticated, also adds to events' context if particular user is going
@@ -229,7 +226,8 @@ def detail_view(request, slug, id):
         user_events = Participant.objects.filter(user=request.user, event=OuterRef('pk'))
         card = card.annotate(user_going=Exists(user_events))
 
-    return render(request, 'index.html', context={'events': card})
+    return render(request, 'index.html', context={'events': card,
+                                                  'is_detail': True})
 
 # Helper functions
 
