@@ -24,6 +24,7 @@ class DiscordID(models.Model):
             response = requests.get(self.avatar_link)
             filename = self.avatar_link.rsplit('/', 1)[1] + ".png"
 
-            self.avatar = SimpleUploadedFile(filename, response.content, content_type=response.headers['content-type'])
+            file = SimpleUploadedFile(filename, response.content, content_type=response.headers['content-type'])
+            self.avatar.save(filename, file, True)
         finally:
             super(DiscordID, self).save()
