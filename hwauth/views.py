@@ -47,10 +47,10 @@ def update_avatar(id, hash):
     discord_id = DiscordID.objects.get(discord_id=id)
     url = "https://cdn.discordapp.com/avatars/" + id + "/" + hash
 
-    if discord_id.avatar_url == url:
+    if discord_id.avatar_link == url:
         return
 
-    discord_id.avatar_url = url
+    discord_id.avatar_link = url
     discord_id.save()
 
 
