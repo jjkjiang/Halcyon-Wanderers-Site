@@ -22,7 +22,7 @@ def get_token(code):
         'client_secret': settings.DISCORD_CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': 'https://imehi.me/auth/discord/',
+        'redirect_uri': 'https://hw-ffxiv.com/auth/discord/',
         'scope': 'identify'
     }
 
