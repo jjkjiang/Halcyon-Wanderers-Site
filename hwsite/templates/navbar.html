@@ -48,6 +48,20 @@
             <div class="navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <img style="height:38px;" src="{{ discord.avatar.url }}">
+                    <!--div class="dropdown">
+                        <button class="btn btn-nav-item nav-link dropdown-toggle" type="button" data-toggle="dropdown">{{ user.username }}</button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form method="post" action="/auth/change/">
+                                    {% csrf_token %}
+                                    Change username <br>
+                                    <input type="text" name="user">
+                                </form>
+                            </li>
+                        </ul>
+                    </div-->
+
+
                     <a class="nav-item nav-link" href="#"> {{ user.username }}</a>
                     <a class="nav-item nav-link" href="/auth/logout">Logout</a>
                 {% else %}

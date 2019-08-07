@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from .models import DiscordID
 
@@ -99,3 +100,13 @@ def logout_view(request):
     """
     logout(request)
     return HttpResponseRedirect(redirect_to="/")
+
+
+def change_username(request):
+    user = request.user
+
+    new_username = request.POST.get('user')
+    user.username = new_username
+    user.save()
+
+    return redirect(request.path_info)
