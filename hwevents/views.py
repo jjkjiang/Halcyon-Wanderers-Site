@@ -1,6 +1,12 @@
 import datetime
 
 import math
+import sys
+import subprocess
+import os
+import requests
+import json
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef, F
 from django.forms import ModelForm, DateTimeField
@@ -68,9 +74,9 @@ def get_events(request):
     events = Event.objects.filter(id=event_id)
     data = []
     for event in events:
-        image = 'http://imehi.me/media/' + str(event.image)
-        url = 'https://imehi.me/events/id/' + event.title.replace(" ", "-") + "-" + str(event.id)
-        data.append({'title': event.title, 'description': event.description, 'image': image, 'url': url})
+        image = 'https://imehi.me/media/' + str(event.image)
+        url = 'https://imehi.me/events/id/' + event.slug + "-" + str(event.id)
+        data.append({'title': event.title, 'description': event.description, 'image': image, 'url': url, 'time': event.event_date})
     return JsonResponse(data, safe=False)
 
 
@@ -171,6 +177,20 @@ def create_event_view(request):
             event = form.save(commit=False)
             event.writer = request.user
             event.save()
+            
+            channelID = settings.HW_CHANNEL
+            botToken = settings.DISCORD_TOKEN
+
+            baseURL = "https://discordapp.com/api/channels/{}/messages".format(channelID)
+            headers = { "Authorization":"Bot {}".format(botToken),
+            "User-Agent":"myBotThing (http://some.url, v0.1)",
+            "Content-Type":"application/json", }
+
+            url = 'https://hw-ffxiv.com/events/id/' + event.slug + "-" + str(event.id)
+            message = "**An event has been posted**\nView details below:\n\n" + url
+
+            POSTedJSON =  json.dumps ( {"content":message} )
+            r = requests.post(baseURL, headers = headers, data = POSTedJSON)
 
             return HttpResponseRedirect('/events')
         else:
