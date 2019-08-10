@@ -145,7 +145,7 @@ def index(request, page=1):
     upper_page = 10 + (10 * page)
 
     newest_events = Event.objects \
-        .filter(event_date__gt=datetime.datetime.now()) \
+        .filter(event_date__gt=datetime.datetime.now() - datetime.timedelta(days=1)) \
         .annotate(going=Count('participants')) \
         .order_by('event_date')
 
